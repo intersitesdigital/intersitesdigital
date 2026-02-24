@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-brand-bg text-brand-text font-sans antialiased;
+    @apply dark:bg-dark-bg dark:text-dark-text;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn-primary {
+    @apply bg-brand-accent text-white px-6 py-3 rounded-lg font-semibold;
+    @apply hover:bg-brand-accentHover transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2;
+    @apply dark:focus:ring-offset-dark-bg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-brand-primary px-6 py-3 rounded-lg font-semibold border border-brand-primary;
+    @apply hover:bg-brand-primary hover:text-white transition-all duration-200;
+    @apply dark:bg-dark-card dark:text-dark-text dark:border-dark-muted;
+    @apply dark:hover:bg-dark-muted;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-6 transition-all duration-300;
+    @apply hover:shadow-xl hover:-translate-y-1;
+    @apply dark:bg-dark-card dark:shadow-dark-card;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-accent to-brand-cyan bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

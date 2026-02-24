@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block admin routes from search engines
+Disallow: /admin
+Disallow: /admin-login
+
+Sitemap: https://intersitesdigital.in/sitemap.xml

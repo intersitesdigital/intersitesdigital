@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===============================
+   BASE
+=============================== */
+@layer base {
+  :root {
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  p { line-height: 1.75; }
+
+  /* ===============================
+     GLOBAL DARK FORM FIX
+  =============================== */
+  input, textarea, select {
+    color-scheme: light dark;
+  }
+
+  .dark input,
+  .dark textarea {
+    background-color: #020617;
+    color: white;
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+}
+
+/* ===============================
+   COMPONENT UTILITIES
+=============================== */
+@layer components {
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 text-sm shadow-sm hover:-translate-y-px active:translate-y-0 hover:shadow-violet-500/20;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:border-violet-300 dark:hover:border-violet-500/40 hover:text-violet-600 dark:hover:text-violet-400 font-medium px-5 py-2.5 rounded-lg transition-all duration-200 text-sm;
+  }
+
+  .glass-card {
+    @apply bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl backdrop-blur-sm;
+  }
+
+  .section-badge {
+    @apply inline-flex items-center gap-1.5 bg-violet-50 dark:bg-violet-500/10 text-violet-700 dark:text-violet-400 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full border border-violet-100 dark:border-violet-500/20;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-violet-600 to-indigo-500 bg-clip-text text-transparent;
+  }
+
+  .gradient-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-violet-500/50 to-transparent;
+  }
+}
+
+/* ===============================
+   RADIX SELECT ANIMATIONS
+=============================== */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
+
+.radix-select-content {
+  animation: scaleIn 0.15s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===============================
+   SCROLLBAR
+=============================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6, #ec4899);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7c3aed, #db2777);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a78bfa transparent;
+}
+
+/* ===============================
+   NPROGRESS
+=============================== */
+#nprogress .bar {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  height: 3px;
+  z-index: 9999;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #8b5cf6, 0 0 5px #ec4899;
+}
+
+/* ===============================
+   MICRO ANIMATIONS
+=============================== */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease forwards;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up {
+    animation: none !important;
+  }
+}
+
+/* ===============================
+   SELECTION
+=============================== */
+::selection {
+  background: rgba(139,92,246,0.25);
+  color: white;
+}
