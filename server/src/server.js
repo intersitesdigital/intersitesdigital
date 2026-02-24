@@ -19,9 +19,22 @@ const PORT = process.env.PORT || 5000;
 
 connectDB();
 
+const allowedOrigins = [
+  process.env.ALLOWED_ORIGIN,
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'https://intersitesdigital.in',
+  'https://www.intersitesdigital.in',
+  'https://intersitesdigital-web.vercel.app',
+].filter(Boolean);
+
 app.use(helmet());
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS blocked: ${origin}`));
+  },
   credentials: true,
 }));
 app.use(morgan('dev'));
@@ -50,7 +63,7 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔒 CORS origin: ${process.env.ALLOWED_ORIGIN || 'http://localhost:5173'}`);
+  console.log(`🔒 Allowed origins: ${allowedOrigins.join(', ')}`);
 });
 
 export default app;
