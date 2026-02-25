@@ -8,8 +8,6 @@ import {
   FileText, Inbox, KeyRound, X, Loader2
 } from 'lucide-react';
 
-// ─── Sub-components ─────────────────────────────────────────
-
 function StarRating({ rating }) {
   return (
     <div className="flex gap-0.5">
@@ -29,17 +27,17 @@ function ReviewCard({ review, onDelete, isGoogle }) {
     setDeleting(false);
   };
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col gap-3 hover:bg-white/[0.07] transition group">
+    <div className="bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col gap-3 hover:bg-white/[0.07] transition group">
       <div className="flex items-start justify-between gap-2">
-        <div>
+        <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <p className="font-semibold text-white text-sm">{review.name || review.author_name}</p>
-            {isGoogle && <span className="inline-flex items-center gap-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full font-medium"><Globe className="w-3 h-3" />Google</span>}
+            <p className="font-semibold text-white text-sm truncate">{review.name || review.author_name}</p>
+            {isGoogle && <span className="inline-flex items-center gap-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full font-medium shrink-0"><Globe className="w-3 h-3" />Google</span>}
           </div>
           <StarRating rating={review.rating} />
         </div>
         {!isGoogle && (
-          <button onClick={handleDelete} disabled={deleting} className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg p-1.5 transition-all disabled:opacity-40">
+          <button onClick={handleDelete} disabled={deleting} className="shrink-0 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg p-1.5 transition-all disabled:opacity-40">
             <Trash2 className="w-4 h-4" />
           </button>
         )}
@@ -52,26 +50,26 @@ function ReviewCard({ review, onDelete, isGoogle }) {
 
 function LeadCard({ lead }) {
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/[0.07] transition">
+    <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/[0.07] transition">
       <div className="flex items-start gap-3 mb-3">
         <div className="w-9 h-9 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 font-bold text-sm shrink-0">
           {(lead.name || lead.email)[0].toUpperCase()}
         </div>
-        <div>
-          <p className="font-semibold text-white text-sm">{lead.name || 'Unknown'}</p>
-          <p className="text-gray-400 text-xs">{lead.email}</p>
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold text-white text-sm truncate">{lead.name || 'Unknown'}</p>
+          <p className="text-gray-400 text-xs truncate">{lead.email}</p>
         </div>
-        <span className={`ml-auto text-xs px-2 py-0.5 rounded-full font-medium ${
+        <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium ${
           lead.status === 'new' ? 'bg-emerald-500/15 text-emerald-400' :
           lead.status === 'contacted' ? 'bg-blue-500/15 text-blue-400' :
           'bg-gray-500/15 text-gray-400'
         }`}>{lead.status}</span>
       </div>
       <div className="grid grid-cols-2 gap-2 text-xs">
-        {lead.phone && <div className="flex items-center gap-1 text-gray-400"><Phone className="w-3 h-3" />{lead.phone}</div>}
-        {lead.company && <div className="flex items-center gap-1 text-gray-400"><Briefcase className="w-3 h-3" />{lead.company}</div>}
-        {lead.service && <div className="flex items-center gap-1 text-gray-400"><FileText className="w-3 h-3" />{lead.service}</div>}
-        {lead.source && <div className="flex items-center gap-1 text-gray-400"><TrendingUp className="w-3 h-3" />{lead.source}</div>}
+        {lead.phone && <div className="flex items-center gap-1 text-gray-400 min-w-0"><Phone className="w-3 h-3 shrink-0" /><span className="truncate">{lead.phone}</span></div>}
+        {lead.company && <div className="flex items-center gap-1 text-gray-400 min-w-0"><Briefcase className="w-3 h-3 shrink-0" /><span className="truncate">{lead.company}</span></div>}
+        {lead.service && <div className="flex items-center gap-1 text-gray-400 min-w-0"><FileText className="w-3 h-3 shrink-0" /><span className="truncate">{lead.service}</span></div>}
+        {lead.source && <div className="flex items-center gap-1 text-gray-400 min-w-0"><TrendingUp className="w-3 h-3 shrink-0" /><span className="truncate">{lead.source}</span></div>}
       </div>
       <p className="text-gray-600 text-xs mt-2">{new Date(lead.createdAt).toLocaleDateString()}</p>
     </div>
@@ -80,13 +78,13 @@ function LeadCard({ lead }) {
 
 function ContactCard({ contact }) {
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/[0.07] transition">
-      <div className="flex items-start justify-between mb-2">
-        <div>
-          <p className="font-semibold text-white text-sm">{contact.name}</p>
-          <p className="text-gray-400 text-xs">{contact.email}</p>
+    <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/[0.07] transition">
+      <div className="flex items-start justify-between gap-2 mb-2">
+        <div className="min-w-0">
+          <p className="font-semibold text-white text-sm truncate">{contact.name}</p>
+          <p className="text-gray-400 text-xs truncate">{contact.email}</p>
         </div>
-        <span className="text-xs bg-blue-500/15 text-blue-400 px-2 py-0.5 rounded-full">{contact.service || 'General'}</span>
+        <span className="shrink-0 text-xs bg-blue-500/15 text-blue-400 px-2 py-0.5 rounded-full">{contact.service || 'General'}</span>
       </div>
       <p className="text-gray-400 text-sm line-clamp-3 mb-2">{contact.message}</p>
       {contact.budget && <p className="text-xs text-gray-500">Budget: {contact.budget}</p>}
@@ -95,9 +93,8 @@ function ContactCard({ contact }) {
   );
 }
 
-// ─── Change Password Modal ───────────────────────────────────
 function ChangePasswordModal({ onClose }) {
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 
   const handleSendResetEmail = async () => {
@@ -115,35 +112,27 @@ function ChangePasswordModal({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-
-      {/* Modal */}
-      <div className="relative bg-gray-900 border border-white/10 rounded-2xl w-full max-w-md shadow-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+      <div className="relative bg-gray-900 border border-white/10 rounded-2xl w-full max-w-md shadow-2xl mx-4">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-violet-500/15 border border-violet-500/20 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-violet-500/15 border border-violet-500/20 flex items-center justify-center shrink-0">
               <KeyRound className="w-4 h-4 text-violet-400" />
             </div>
             <div>
               <h2 className="font-semibold text-white text-sm">Change Password</h2>
-              <p className="text-gray-500 text-xs">Send a secure reset link to your admin email</p>
+              <p className="text-gray-500 text-xs">Send reset link to admin email</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-gray-500 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition">
+          <button onClick={onClose} className="text-gray-500 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition shrink-0">
             <X className="w-4 h-4" />
           </button>
         </div>
-
-        {/* Body */}
-        <div className="px-6 py-6 space-y-5">
+        <div className="px-5 py-5 space-y-4">
           <div className="bg-white/5 border border-white/8 rounded-xl p-4 text-sm text-gray-400 leading-relaxed">
-            <p>A password reset link will be sent to the <span className="text-white font-medium">ADMIN_EMAIL</span> address configured in your server <code className="bg-white/10 text-violet-300 px-1.5 py-0.5 rounded text-xs">.env</code> file.</p>
-            <p className="mt-2 text-gray-500 text-xs">The link expires in <strong className="text-gray-400">15 minutes</strong>.</p>
+            <p>A reset link will be sent to the <span className="text-white font-medium">ADMIN_EMAIL</span> in your server <code className="bg-white/10 text-violet-300 px-1.5 py-0.5 rounded text-xs">.env</code>.</p>
+            <p className="mt-2 text-gray-500 text-xs">Link expires in <strong className="text-gray-400">15 minutes</strong>.</p>
           </div>
-
-          {/* Status feedback */}
           {status === 'success' && (
             <div className="flex items-start gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
               <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
@@ -156,13 +145,8 @@ function ChangePasswordModal({ onClose }) {
               <p className="text-red-300 text-sm">{message}</p>
             </div>
           )}
-
-          {/* Action buttons */}
           <div className="flex gap-3">
-            <button
-              onClick={onClose}
-              className="flex-1 px-4 py-2.5 rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-white/20 text-sm font-medium transition"
-            >
+            <button onClick={onClose} className="flex-1 px-4 py-2.5 rounded-lg border border-white/10 text-gray-400 hover:text-white hover:border-white/20 text-sm font-medium transition">
               Cancel
             </button>
             <button
@@ -170,34 +154,17 @@ function ChangePasswordModal({ onClose }) {
               disabled={status === 'loading' || status === 'success'}
               className="flex-1 flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition"
             >
-              {status === 'loading'
-                ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</>
-                : status === 'success'
-                ? <><CheckCircle className="w-4 h-4" /> Email Sent</>
-                : <><Mail className="w-4 h-4" /> Send Reset Email</>
-              }
+              {status === 'loading' ? <><Loader2 className="w-4 h-4 animate-spin" />Sending…</>
+                : status === 'success' ? <><CheckCircle className="w-4 h-4" />Sent</>
+                : <><Mail className="w-4 h-4" />Send Reset Email</>}
             </button>
           </div>
-
-          {/* SMTP setup hint */}
-          {status === 'error' && (
-            <div className="text-xs text-gray-600 leading-relaxed border-t border-white/5 pt-4">
-              <p className="font-medium text-gray-500 mb-1">Required .env variables:</p>
-              <code className="block bg-black/30 rounded-lg p-3 text-gray-400 space-y-1">
-                <span className="block">ADMIN_EMAIL=intersitesdigital@gmail.com</span>
-                <span className="block">SMTP_EMAIL=intersitesdigital@gmail.com</span>
-                <span className="block">SMTP_PASS=your_gmail_app_password</span>
-                <span className="block">CLIENT_URL=https://yourdomain.com</span>
-              </code>
-            </div>
-          )}
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Tabs config ─────────────────────────────────────────────
 const tabs = [
   { id: 'reviews', label: 'Reviews', icon: MessageSquare },
   { id: 'leads', label: 'Leads', icon: Users },
@@ -205,7 +172,6 @@ const tabs = [
   { id: 'newsletter', label: 'Newsletter', icon: Mail },
 ];
 
-// ─── Main Dashboard ──────────────────────────────────────────
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('reviews');
@@ -276,148 +242,161 @@ export default function AdminDashboard() {
 
       {/* Toast */}
       {notification && (
-        <div className={`fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-xl shadow-xl text-sm font-medium ${notification.type === 'success' ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-300' : 'bg-red-500/20 border border-red-500/30 text-red-300'}`}>
-          {notification.type === 'success' ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+        <div className={`fixed top-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto z-50 flex items-center gap-2 px-4 py-3 rounded-xl shadow-xl text-sm font-medium ${notification.type === 'success' ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-300' : 'bg-red-500/20 border border-red-500/30 text-red-300'}`}>
+          {notification.type === 'success' ? <CheckCircle className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
           {notification.msg}
         </div>
       )}
 
-      {/* Change Password Modal */}
       {showPasswordModal && <ChangePasswordModal onClose={() => setShowPasswordModal(false)} />}
 
       {/* Header */}
       <header className="border-b border-white/10 bg-white/5 backdrop-blur-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center shrink-0">
               <LayoutDashboard className="w-4 h-4 text-white" />
             </div>
-            <div>
-              <h1 className="font-bold text-base">Admin Dashboard</h1>
-              <p className="text-gray-500 text-xs">Intersites Digital</p>
+            <div className="min-w-0">
+              <h1 className="font-bold text-sm sm:text-base truncate">Admin Dashboard</h1>
+              <p className="text-gray-500 text-xs hidden sm:block">Intersites Digital</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={fetchAll}
-              title="Refresh"
-              className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition"
-            >
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            <button onClick={fetchAll} title="Refresh" className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition">
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             </button>
-            {/* Change Password button */}
             <button
               onClick={() => setShowPasswordModal(true)}
               title="Change Password"
-              className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-violet-300 hover:bg-violet-500/10 px-3 py-2 rounded-lg transition"
+              className="p-2 sm:flex sm:items-center sm:gap-1.5 sm:px-3 text-gray-400 hover:text-violet-300 hover:bg-violet-500/10 rounded-lg transition"
             >
               <KeyRound className="w-4 h-4" />
-              <span className="hidden sm:inline">Change Password</span>
+              <span className="hidden sm:inline text-sm">Password</span>
             </button>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-red-400 hover:bg-red-500/10 px-3 py-2 rounded-lg transition"
+              className="p-2 sm:flex sm:items-center sm:gap-1.5 sm:px-3 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Logout</span>
+              <span className="hidden sm:inline text-sm">Logout</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-10">
-        {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
+        {/* Stats Grid — 2 cols on mobile, 3 on sm, 5 on lg */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-10">
           {statCards.map(({ label, value, icon: Icon, color }) => (
-            <div key={label} className="bg-white/5 border border-white/10 rounded-xl p-4">
-              <div className={`inline-flex items-center justify-center w-8 h-8 rounded-lg bg-${color}-500/10 mb-3`}>
+            <div key={label} className="bg-white/5 border border-white/10 rounded-xl p-3 sm:p-4">
+              <div className={`inline-flex items-center justify-center w-8 h-8 rounded-lg bg-${color}-500/10 mb-2 sm:mb-3`}>
                 <Icon className={`w-4 h-4 text-${color}-400`} />
               </div>
-              <p className="text-2xl font-bold">{value}</p>
-              <p className="text-gray-500 text-xs">{label}</p>
+              <p className="text-xl sm:text-2xl font-bold">{value}</p>
+              <p className="text-gray-500 text-xs mt-0.5">{label}</p>
             </div>
           ))}
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-1 mb-8 bg-white/5 p-1 rounded-xl w-fit overflow-x-auto">
-          {tabs.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              onClick={() => setActiveTab(id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition whitespace-nowrap ${activeTab === id ? 'bg-violet-600 text-white' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}
-            >
-              <Icon className="w-4 h-4" />{label}
-            </button>
-          ))}
+        {/* Tabs — scrollable on mobile */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex gap-1 bg-white/5 p-1 rounded-xl overflow-x-auto scrollbar-hide">
+            {tabs.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap flex-shrink-0 ${activeTab === id ? 'bg-violet-600 text-white' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}
+              >
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />{label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Tab content */}
+        {/* Reviews Tab */}
         {activeTab === 'reviews' && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <section>
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-indigo-400" /> Local Reviews
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400" /> Local Reviews
                 <span className="bg-indigo-500/20 text-indigo-300 text-xs px-2 py-0.5 rounded-full">{localReviews.length}</span>
               </h2>
               {loading
-                ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{[...Array(3)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-5 animate-pulse h-36" />)}</div>
+                ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{[...Array(3)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 animate-pulse h-32" />)}</div>
                 : localReviews.length === 0
-                ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-8 text-center">No local reviews yet.</div>
-                : <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{localReviews.map((r) => <ReviewCard key={r._id} review={r} onDelete={handleDeleteReview} isGoogle={false} />)}</div>}
+                ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-6 sm:p-8 text-center">No local reviews yet.</div>
+                : <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{localReviews.map((r) => <ReviewCard key={r._id} review={r} onDelete={handleDeleteReview} isGoogle={false} />)}</div>}
             </section>
             <section>
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Globe className="w-5 h-5 text-blue-400" /> Google Reviews
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+                <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" /> Google Reviews
                 <span className="bg-blue-500/20 text-blue-300 text-xs px-2 py-0.5 rounded-full">{googleReviews.length}</span>
               </h2>
-              {!loading && googleReviews.length === 0 && <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-8 text-center">No Google reviews. Check your GOOGLE_API_KEY and GOOGLE_PLACE_ID.</div>}
-              {!loading && googleReviews.length > 0 && <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{googleReviews.map((r, i) => <ReviewCard key={i} review={r} onDelete={() => {}} isGoogle={true} />)}</div>}
+              {!loading && googleReviews.length === 0 && <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-6 sm:p-8 text-center">No Google reviews. Check your GOOGLE_API_KEY and GOOGLE_PLACE_ID.</div>}
+              {!loading && googleReviews.length > 0 && <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{googleReviews.map((r, i) => <ReviewCard key={i} review={r} onDelete={() => {}} isGoogle={true} />)}</div>}
             </section>
           </div>
         )}
 
+        {/* Leads Tab */}
         {activeTab === 'leads' && (
           <section>
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Users className="w-5 h-5 text-violet-400" /> Leads
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+              <Users className="w-4 h-4 sm:w-5 sm:h-5 text-violet-400" /> Leads
               <span className="bg-violet-500/20 text-violet-300 text-xs px-2 py-0.5 rounded-full">{leads.length}</span>
             </h2>
             {loading
-              ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{[...Array(3)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-5 animate-pulse h-32" />)}</div>
+              ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{[...Array(3)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 animate-pulse h-28" />)}</div>
               : leads.length === 0
-              ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-8 text-center">No leads yet.</div>
-              : <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{leads.map((l) => <LeadCard key={l._id} lead={l} />)}</div>}
+              ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-6 sm:p-8 text-center">No leads yet.</div>
+              : <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{leads.map((l) => <LeadCard key={l._id} lead={l} />)}</div>}
           </section>
         )}
 
+        {/* Contacts Tab */}
         {activeTab === 'contacts' && (
           <section>
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Inbox className="w-5 h-5 text-fuchsia-400" /> Contact Submissions
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+              <Inbox className="w-4 h-4 sm:w-5 sm:h-5 text-fuchsia-400" /> Contact Submissions
               <span className="bg-fuchsia-500/20 text-fuchsia-300 text-xs px-2 py-0.5 rounded-full">{contacts.length}</span>
             </h2>
             {loading
-              ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{[...Array(3)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-5 animate-pulse h-36" />)}</div>
+              ? <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{[...Array(3)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 animate-pulse h-32" />)}</div>
               : contacts.length === 0
-              ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-8 text-center">No contact submissions yet.</div>
-              : <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{contacts.map((c) => <ContactCard key={c._id} contact={c} />)}</div>}
+              ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-6 sm:p-8 text-center">No contact submissions yet.</div>
+              : <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">{contacts.map((c) => <ContactCard key={c._id} contact={c} />)}</div>}
           </section>
         )}
 
+        {/* Newsletter Tab */}
         {activeTab === 'newsletter' && (
           <section>
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Mail className="w-5 h-5 text-emerald-400" /> Newsletter Subscribers
+            <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+              <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" /> Newsletter Subscribers
               <span className="bg-emerald-500/20 text-emerald-300 text-xs px-2 py-0.5 rounded-full">{subscribers.length}</span>
             </h2>
             {loading
               ? <div className="space-y-2">{[...Array(5)].map((_, i) => <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 animate-pulse h-14" />)}</div>
               : subscribers.length === 0
-              ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-8 text-center">No subscribers yet.</div>
+              ? <div className="text-gray-500 text-sm bg-white/5 border border-white/10 rounded-xl p-6 sm:p-8 text-center">No subscribers yet.</div>
               : (
                 <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                  {/* Mobile — card view */}
+                  <div className="sm:hidden divide-y divide-white/5">
+                    {subscribers.map((s) => (
+                      <div key={s._id} className="px-4 py-3">
+                        <p className="text-white text-sm font-medium truncate">{s.email}</p>
+                        <div className="flex items-center gap-3 mt-1">
+                          <span className="text-gray-400 text-xs">{s.source}</span>
+                          <span className="text-gray-500 text-xs">{new Date(s.createdAt).toLocaleDateString()}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Desktop — table view */}
+                  <table className="w-full text-sm hidden sm:table">
                     <thead className="bg-white/5 text-gray-400 text-xs uppercase tracking-widest">
                       <tr>
                         <th className="text-left px-4 py-3">Email</th>

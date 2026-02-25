@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Block admin routes from search engines
+# Block admin pages from indexing
 Disallow: /admin
 Disallow: /admin-login
 

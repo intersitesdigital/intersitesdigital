@@ -1,10 +1,10 @@
 services:
   - type: web
-    name: intersites-digital-server
+    name: intersitesdigital
     runtime: node
     rootDir: server
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node src/server.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -24,7 +24,7 @@ services:
         sync: false
       - key: SMTP_PASS
         sync: false
-      - key: ALLOWED_ORIGIN
-        sync: false
       - key: CLIENT_URL
+        sync: false
+      - key: ALLOWED_ORIGIN
         sync: false
