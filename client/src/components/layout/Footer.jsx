@@ -39,10 +39,10 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Github, href: '#', label: 'GitHub' },
+  { icon: Twitter, href: 'https://x.com/IntersitesD', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/intersitesdigital/', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://instagram.com/intersitesdigital', label: 'Instagram' },
+  { icon: Github, href: 'https://github.com/Risha-v', label: 'GitHub' },
 ];
 
 export default function Footer() {
